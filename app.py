@@ -19,7 +19,7 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage, Base, TemplateSendMessage, FlexSendMessage, ImageSendMessage, PostbackEvent, QuickReply
+    MessageEvent, TextMessage, TextSendMessage, Base, TemplateSendMessage, FlexSendMessage, ImageSendMessage, PostbackEvent, QuickReply, FollowEvent
 )
 
 app = Flask(__name__)
@@ -113,6 +113,12 @@ def handle_postback(event):
     if event.postback.data.startswith('get: '):
         url = event.postback.data.split(' ')
         line_bot_api.reply_message(event.reply_token, ImageSendMessage(original_content_url=url[2], preview_image_url=url[1], quick_reply=qr))
+
+# 友達追加時
+@handler.add(FollowEvent)
+def handle_follow(event):
+    reply = creator.create_help_message()
+    line_bot_api.reply_message(event.reply_token, reply)
 
 if __name__ == "__main__":
     app.run(debug=False, host='0.0.0.0', port=5000)
