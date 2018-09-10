@@ -39,6 +39,10 @@ flicker_tool = FutomomoTool()
 # quick reply
 qr = creator.create_quick_reply()
 
+@app.route("/", methods=['GET'])
+def hello_word():
+    return 'Hello World!'
+
 @app.route("/callback", methods=['POST'])
 def callback():
     # get X-Line-Signature header value
