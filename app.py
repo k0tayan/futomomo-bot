@@ -26,8 +26,8 @@ app = Flask(__name__)
 # app = Sanic(__name__)
 
 
-handler = WebhookHandler(os.getenv('LINE_CHANNEL_SECRET_DEV', None))
-line_bot_api = LineBotApi(os.getenv('LINE_CHANNEL_ACCESS_TOKEN_DEV', None))
+handler = WebhookHandler(os.getenv('LINE_CHANNEL_SECRET', None))
+line_bot_api = LineBotApi(os.getenv('LINE_CHANNEL_ACCESS_TOKEN', None))
 # FLICKR_API_KEY = os.getenv('FLICKR_API_KEY', None)
 # FLICKR_API_SECRET = os.getenv('FLICKR_API_SECRET', None)
 
