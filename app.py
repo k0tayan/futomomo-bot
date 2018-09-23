@@ -113,7 +113,7 @@ def handle_message(event):
 
     # パンチラ
     if command_checker.include_command(event.message.text, ["ぱんちら", "パンチラ"]):
-        res = line_bot_api.get_profile(event.source.sender_id)
+        res = line_bot_api.get_profile(event.source.user_id)
         url = futomomo_tool.get_random_pantira_url()
         if res.user_id in ["Uc45442e19e3f8326fc321e828003f710", "U1e73ade0030068a7f41e05e72fd54418"]:
             reply = ImageSendMessage(original_content_url=url, preview_image_url=url)
