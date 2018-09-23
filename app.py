@@ -42,7 +42,7 @@ else:
 command_checker = CommandChecker()
 config = Config()
 creator = FlexCreator()
-flicker_tool = FutomomoTool()
+futomomo_tool = FutomomoTool()
 
 # quick reply
 qr = creator.create_quick_reply()
@@ -107,9 +107,19 @@ def handle_message(event):
 
     # ふともも
     if command_checker.include_command(event.message.text, ["ふともも", "ふと", "もも", "futomomo"]):
-        futomomo = flicker_tool.get_random_futomomo()
+        futomomo = futomomo_tool.get_random_futomomo()
         reply = ImageSendMessage(original_content_url=futomomo.high_quality_url, preview_image_url=futomomo.url, quick_reply=qr)
         line_bot_api.reply_message(event.reply_token, reply)
+
+    # パンチラ
+    if command_checker.include_command(event.message.text, ["ぱんちら", "パンチラ"]):
+        res = line_bot_api.get_profile(event.source.sender_id)
+        url = futomomo_tool.get_random_pantira_url()
+        if res.user_id == "Uc45442e19e3f8326fc321e828003f710":
+            reply = ImageSendMessage(original_content_url=url, preview_image_url=url)
+            line_bot_api.reply_message(event.reply_token, reply)
+        else:
+            line_bot_api.reply_message(event.reply_token, TextSendMessage("権限がありません。"))
 
     # いっぱい
     if command_checker.include_command(event.message.text, ['いっぱい']):

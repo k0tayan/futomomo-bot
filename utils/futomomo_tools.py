@@ -29,3 +29,7 @@ class FutomomoTool(Config):
         photo = random.choice(urls).split(' ')
         return Futomomo(photo[0], photo[1], photo[2])
 
+    def get_random_pantira_url(self):
+        index = random.choice(range(17))
+        return f"https://s3-ap-northeast-1.amazonaws.com/futomomo/pantira/pantira{index}.jpg"
+
