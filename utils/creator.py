@@ -41,4 +41,5 @@ class FlexCreator(FutomomoTool):
             QuickReplyButton(image_url=self.get_random_futomomo().square_url, action=MessageAction(label="ヘルプ", text="ヘルプ")),
             QuickReplyButton(image_url=self.get_random_futomomo().square_url, action=MessageAction(label="ふともも", text="ふともも")),
             QuickReplyButton(image_url=self.get_random_futomomo().square_url, action=MessageAction(label="いっぱい", text="いっぱい")),
+            QuickReplyButton(image_url=self.get_random_futomomo().square_url, action=MessageAction(label="ぱんちら", text="ぱんちら"))
         ])
