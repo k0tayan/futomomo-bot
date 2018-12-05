@@ -74,12 +74,8 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, test)
     # profile
     if event.message.text in ['profile', 'p', 'pl', 'プロフィール']:
-        source_type = event.source.type
-        if (source_type == "user"):
-            res = line_bot_api.get_profile(event.source.sender_id)
-            reply = TextSendMessage(f"[名前]:\n{res.display_name}\n[UserId]:\n{res.user_id}\n[pictureUrl]:\n{res.picture_url}\n[一言]:\n{res.status_message}")
-        else:
-            reply = TextSendMessage("個人チャットで使ってね!")
+        res = line_bot_api.get_profile(event.source.user_id)
+        reply = TextSendMessage(f"[名前]:\n{res.display_name}\n[UserId]:\n{res.user_id}\n[pictureUrl]:\n{res.picture_url}\n[一言]:\n{res.status_message}")
         line_bot_api.reply_message(event.reply_token, reply)
     # help
     if event.message.text in ["ヘルプ", "help", "h"]:
@@ -98,7 +94,7 @@ def handle_message(event):
             line_bot_api.leave_room(event.source.sender_id)
 
     # ふともも
-    if command_checker.include_command(event.message.text, ["ふともも", "ふと", "もも", "futomomo"]):
+    if command_checker.include_command(event.message.text, ["ふともも", "ふと", "もも", "futomomo", "桃", "momo"]):
         futomomo = futomomo_tool.get_random_futomomo()
         reply = ImageSendMessage(original_content_url=futomomo.high_quality_url, preview_image_url=futomomo.url, quick_reply=qr)
         line_bot_api.reply_message(event.reply_token, reply)
@@ -106,8 +102,8 @@ def handle_message(event):
     # パンチラ
     if command_checker.include_command(event.message.text, ["ぱんちら", "パンチラ"]):
         res = line_bot_api.get_profile(event.source.user_id)
-        url = futomomo_tool.get_random_pantira_url()
-        if res.user_id in ["Uc45442e19e3f8326fc321e828003f710", "U1e73ade0030068a7f41e05e72fd54418"]:
+        if command_checker.check_authrity(res.user_id):
+            url = futomomo_tool.get_random_pantira_url()
             reply = ImageSendMessage(original_content_url=url, preview_image_url=url)
             line_bot_api.reply_message(event.reply_token, reply)
         else:
@@ -117,6 +113,16 @@ def handle_message(event):
     if command_checker.include_command(event.message.text, ['いっぱい']):
         futomomo = creator.create_normal_futomomo()
         line_bot_api.reply_message(event.reply_token, futomomo)
+
+    # おっぱい
+    if command_checker.include_command(event.message.text, ['おっぱい', 'opi']):
+        res = line_bot_api.get_profile(event.source.user_id)
+        if command_checker.check_authrity(res.user_id):
+            url = futomomo_tool.get_random_opi_url()
+            reply = ImageSendMessage(original_content_url=url, preview_image_url=url)
+            line_bot_api.reply_message(event.reply_token, reply)
+        else:
+            line_bot_api.reply_message(event.reply_token, TextSendMessage("権限がありません。"))
 
 @handler.add(PostbackEvent)
 def handle_postback(event):

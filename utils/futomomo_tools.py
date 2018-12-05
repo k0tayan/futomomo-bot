@@ -7,6 +7,9 @@ import os
 PANTIRA_RANGE_MIN = 1
 PANTIRA_RANGE_MAX = 73
 
+OPI_RANGE_MIN = 1
+OPI_RANGE_MAX = 84
+
 class FutomomoTool(Config):
     def __init__(self):
         self.path = os.path.dirname(os.path.abspath(__file__))
@@ -18,16 +21,6 @@ class FutomomoTool(Config):
         return None
 
     def get_random_futomomo(self):
-        # photos = self.flicker.photos_search(user_id=self.yuria_user_id, per_page=self.per_page)['photos']['photo']
-        # photo_sets = self.flicker.photosets.getPhotos(photoset_id=self.fetish_id, user_id=self.yuria_user_id, page=1)["photoset"]["photo"]
-        # photo_sets.append(self.flicker.photosets.getPhotos(photoset_id=self.fetish_id, user_id=self.yuria_user_id, page=2)["photoset"]["photo"])
-        # photo = random.choice(photo_sets)
-        # title, farm, server, _id, secret = photo['title'], str(photo["farm"]), photo["server"], photo["id"], photo["secret"]
-        # sizes = self.flicker.photos.getSizes(photo_id=_id)['sizes']['size']
-        # url = self.get_url_from_label("Medium", sizes)
-        # url = f"https://farm{str(farm)}.static.flickr.com/{server}/{_id}_{secret}.jpg"
-        # largest_url = sizes.pop()["source"]
-        # square_url = self.get_url_from_label("Square", sizes)
         urls = open(f"{self.path}/urls.txt", 'r').read().split('\n')
         photo = random.choice(urls).split(' ')
         return Futomomo(photo[0], photo[1], photo[2])
@@ -35,4 +28,8 @@ class FutomomoTool(Config):
     def get_random_pantira_url(self):
         index = random.choice(range(PANTIRA_RANGE_MIN, PANTIRA_RANGE_MAX+1))
         return f"https://s3-ap-northeast-1.amazonaws.com/futomomo/pantira/{index}_pantira.jpg"
+
+    def get_random_opi_url(self):
+        index = random.choice(range(OPI_RANGE_MIN, OPI_RANGE_MAX + 1))
+        return f"https://s3-ap-northeast-1.amazonaws.com/futomomo/opi/{index}_opi.jpg"
 
