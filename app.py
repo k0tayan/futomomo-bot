@@ -104,10 +104,10 @@ def handle_message(event):
         res = line_bot_api.get_profile(event.source.user_id)
         if command_checker.check_authrity(res.user_id):
             url = futomomo_tool.get_random_pantira_url()
-            reply = ImageSendMessage(original_content_url=url, preview_image_url=url)
+            reply = ImageSendMessage(original_content_url=url, preview_image_url=url, quick_reply=qr)
             line_bot_api.reply_message(event.reply_token, reply)
         else:
-            line_bot_api.reply_message(event.reply_token, TextSendMessage("権限がありません。"))
+            line_bot_api.reply_message(event.reply_token, TextSendMessage("権限がありません。", quick_reply=qr))
 
     # いっぱい
     if command_checker.include_command(event.message.text, ['いっぱい']):
@@ -119,10 +119,10 @@ def handle_message(event):
         res = line_bot_api.get_profile(event.source.user_id)
         if command_checker.check_authrity(res.user_id):
             url = futomomo_tool.get_random_opi_url()
-            reply = ImageSendMessage(original_content_url=url, preview_image_url=url)
+            reply = ImageSendMessage(original_content_url=url, preview_image_url=url, quick_reply=qr)
             line_bot_api.reply_message(event.reply_token, reply)
         else:
-            line_bot_api.reply_message(event.reply_token, TextSendMessage("権限がありません。"))
+            line_bot_api.reply_message(event.reply_token, TextSendMessage("権限がありません。", quick_reply=qr))
 
 @handler.add(PostbackEvent)
 def handle_postback(event):
