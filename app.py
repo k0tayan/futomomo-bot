@@ -1,16 +1,11 @@
 from __future__ import unicode_literals
 from flask import Flask, request, abort
-# from sanic import Sanic
-# from sanic.response import text
-# from sanic.exceptions import abort
 from utils.command import CommandChecker
 from utils.config import Config
 from utils.creator import FlexCreator
 from utils.futomomo_tools import FutomomoTool
 import os
 import json
-import flickrapi
-import random
 import sys
 
 from linebot import (
@@ -25,7 +20,6 @@ JoinEvent
 )
 
 app = Flask(__name__)
-# app = Sanic(__name__)
 
 env = os.getenv('LINE_BOT', None)
 if env == 'DEV':
@@ -36,8 +30,6 @@ elif env == 'RELEASE':
     line_bot_api = LineBotApi(os.getenv('LINE_CHANNEL_ACCESS_TOKEN', None))
 else:
     sys.exit()
-# FLICKR_API_KEY = os.getenv('FLICKR_API_KEY', None)
-# FLICKR_API_SECRET = os.getenv('FLICKR_API_SECRET', None)
 
 command_checker = CommandChecker()
 config = Config()
