@@ -4,6 +4,9 @@ from utils.config import Config
 from  utils.objects import Futomomo
 import os
 
+PANTIRA_RANGE_MIN = 1
+PANTIRA_RANGE_MAX = 73
+
 class FutomomoTool(Config):
     def __init__(self):
         self.path = os.path.dirname(os.path.abspath(__file__))
@@ -30,6 +33,6 @@ class FutomomoTool(Config):
         return Futomomo(photo[0], photo[1], photo[2])
 
     def get_random_pantira_url(self):
-        index = random.choice(range(1, 17))
-        return f"https://s3-ap-northeast-1.amazonaws.com/futomomo/pantira/pantira{index}.jpg"
+        index = random.choice(range(PANTIRA_RANGE_MIN, PANTIRA_RANGE_MAX+1))
+        return f"https://s3-ap-northeast-1.amazonaws.com/futomomo/pantira/{index}_pantira.jpg"
 
