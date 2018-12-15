@@ -143,7 +143,7 @@ def handle_message(event):
             req = event.message.text.split(' ')
             if len(req) == 3:
                 cmd, user_id, level = req
-                if command_checker.update_authority(user_id, level):
+                if command_checker.update_authority(user_id, int(level)):
                     reply = TextSendMessage("Change user authority succeeded")
                     line_bot_api.reply_message(event.reply_token, reply)
                 else:
