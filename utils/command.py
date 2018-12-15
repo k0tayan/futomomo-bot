@@ -53,7 +53,8 @@ class CommandChecker:
             self.collection.update({'user_id':user_id}, {'$set': {'authority':level}})
             return True
         else:
-            return False
+            self.new_user(user_id, count=1, authority=level)
+            return True
 
 
     def equal_command(self, string, commands):
