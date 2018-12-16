@@ -51,6 +51,7 @@ class FlexCreator(FutomomoTool):
     def create_profile(self, profile, count, authority):
         flex = self.__get_json_object('./template/flex_profile.json',
                                       {'INSERT_ICON_URL':profile.picture_url,
+                                       'INSERT_NAME':profile.display_name,
                                        'INSERT_UserID':profile.user_id,
                                        'INSERT_COUNT':str(count),
                                        'INSERT_AUTHORITY':str(authority)})

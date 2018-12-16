@@ -37,7 +37,7 @@
             },
             {
               "type": "text",
-              "text": "Name",
+              "text": "INSERT_NAME",
               "weight": "bold",
               "size": "xl",
               "align": "start",
@@ -73,7 +73,6 @@
         {
           "type": "text",
           "text": "INSERT_UserID",
-          "wrap": true,
           "color": "#666666",
           "size": "sm",
           "align": "center",
