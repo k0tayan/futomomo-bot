@@ -78,9 +78,11 @@ def handle_message(event):
 
     # profile
     if command_checker.equal_command(event.message.text, ['profile', 'p', 'pl', 'プロフィール']):
-        res = line_bot_api.get_profile(event.source.user_id)
-        count = command_checker.get_count(res.user_id)
-        reply = TextSendMessage(f"[名前]:\n{res.display_name}\n[UserId]:\n{res.user_id}\n[pictureUrl]:\n{res.picture_url}\n[一言]:\n{res.status_message}\n[実行回数]:\n{count}")
+        profile = line_bot_api.get_profile(event.source.user_id)
+        user = command_checker.get_user(event.source.user_id)
+        if not user:
+            command_checker.new_user(event.source.user_id)
+        reply = creator.create_profile(profile, user['count'], user['authority'])
         line_bot_api.reply_message(event.reply_token, reply)
 
     # uid

@@ -12,8 +12,11 @@ class FlexCreator(FutomomoTool):
     def __init__(self):
         super().__init__()
 
-    def __get_json_object(self, path):
+    def __get_json_object(self, path, replace=None):
         raw_flex = open(path, 'r').read()
+        if replace:
+            for r in replace:
+                raw_flex = raw_flex.replace(r, replace['r'])
         flex = json.loads(raw_flex)
         return flex
 
@@ -44,3 +47,12 @@ class FlexCreator(FutomomoTool):
             QuickReplyButton(image_url=self.get_random_futomomo().square_url, action=MessageAction(label="ぱんちら", text="ぱんちら")),
             QuickReplyButton(image_url=self.get_random_futomomo().square_url, action=MessageAction(label="おっぱい", text="おっぱい"))
         ])
+
+    def create_profile(self, profile, count, authority):
+        flex = self.__get_json_object('./template/flex_profile.json',
+                                      {'INSERT_ICON_URL':profile.picture_url,
+                                       'INSERT_UserID':profile.user_id,
+                                       'INSERT_COUNT':str(count),
+                                       'INSERT_AUTHORITY':str(authority)})
+        return FlexSendMessage(alt_text='profile', contents=flex, quick_reply=self.create_quick_reply())
+

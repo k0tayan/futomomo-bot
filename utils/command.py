@@ -18,6 +18,13 @@ class CommandChecker:
     def new_user(self, user_id, count=1, authority=0):
         self.collection.insert({'user_id': user_id, 'count': count, 'authority': authority})
 
+    def get_user(self, user_id):
+        users = self.collection.find({'user_id':user_id})
+        if users.count():
+            return users[0]
+        else:
+            return None
+
     def count_up(self, user_id):
         users = self.collection.find({'user_id':user_id})
         if users.count():

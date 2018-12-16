@@ -1,0 +1,136 @@
+{
+  "type": "bubble",
+  "styles": {
+    "header": {
+      "backgroundColor": "#F1789B"
+    },
+    "body": {
+      "backgroundColor": "#ffffff"
+    },
+    "footer": {
+      "backgroundColor": "#F1789B"
+    }
+  },
+  "header": {
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+      {
+       "type": "spacer",
+       "size": "xs"
+     }
+    ]
+  },
+  "body": {
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+      {
+        "type": "box",
+        "layout": "horizontal",
+        "contents":[
+            {
+              "type": "image",
+              "url": "INSERT_ICON_URL",
+              "align": "start",
+              "size":"xs"
+            },
+            {
+              "type": "text",
+              "text": "Name",
+              "weight": "bold",
+              "size": "xl",
+              "align": "start",
+              "gravity": "center"
+            }
+        ]
+      },
+      {
+        "type":"box",
+        "layout": "vertical",
+        "contents":[
+            {
+               "type": "spacer",
+               "size": "lg"
+            },
+            {
+            "type": "separator"
+          }
+          ]
+      },
+     {
+      "type": "box",
+      "layout": "horizontal",
+      "contents":[
+        {
+          "type": "text",
+          "text": "UserID",
+          "color": "#aaaaaa",
+          "size": "sm",
+          "align": "start",
+          "gravity": "bottom"
+        },
+        {
+          "type": "text",
+          "text": "INSERT_UserID",
+          "wrap": true,
+          "color": "#666666",
+          "size": "sm",
+          "align": "center",
+          "gravity": "bottom"
+        }
+      ]
+     },
+    {
+      "type": "separator"
+    },
+    {
+      "type": "box",
+      "layout": "horizontal",
+      "contents":[
+        {
+          "type": "text",
+          "text": "Cmd request count",
+          "color": "#aaaaaa",
+          "size": "sm",
+          "align": "start",
+          "gravity": "bottom"
+        },
+        {
+          "type": "text",
+          "text": "INSERT_COUNT",
+          "color": "#666666",
+          "size": "sm",
+          "align": "center",
+          "gravity": "bottom"
+        }
+      ]
+     },
+     {
+      "type": "separator"
+    },
+    {
+      "type": "box",
+      "layout": "horizontal",
+      "contents":[
+        {
+          "type": "text",
+          "text": "Authority",
+          "color": "#aaaaaa",
+          "size": "sm",
+          "align": "start",
+          "gravity": "bottom"
+        },
+        {
+          "type": "text",
+          "text": "INSERT_AUTHORITY",
+          "color": "#666666",
+          "size": "sm",
+          "align": "center",
+          "gravity": "bottom"
+        }
+      ]
+     }
+    ]
+  }
+}
