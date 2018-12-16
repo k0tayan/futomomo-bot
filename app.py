@@ -141,7 +141,7 @@ def handle_message(event):
 
     # コマンド総実行回数
     if command_checker.equal_command(event.message.text, ['max']):
-        if command_checker.check_authority(event.source.user_id, level=2):
+        if command_checker.check_authority(event.source.user_id, level=ADMIN):
             user = command_checker.get_max_count_user()
             profile = line_bot_api.get_profile(user['user_id'])
             count = user['count']
