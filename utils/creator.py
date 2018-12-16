@@ -16,7 +16,7 @@ class FlexCreator(FutomomoTool):
         raw_flex = open(path, 'r').read()
         if replace:
             for r in replace:
-                raw_flex = raw_flex.replace(r, replace['r'])
+                raw_flex = raw_flex.replace(r, replace[r])
         flex = json.loads(raw_flex)
         return flex
 
