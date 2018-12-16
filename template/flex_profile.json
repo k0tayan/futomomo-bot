@@ -38,6 +38,7 @@
             {
               "type": "text",
               "text": "INSERT_NAME",
+              "wrap":true,
               "weight": "bold",
               "size": "xl",
               "align": "start",
