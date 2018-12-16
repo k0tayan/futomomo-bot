@@ -10,3 +10,5 @@ else:
     print('not found')
 for user in users:
     print(user)
+
+print('max count', collection.find_one(sort=[("count", -1)]))
