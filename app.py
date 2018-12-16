@@ -141,11 +141,11 @@ def handle_message(event):
 
     # コマンド総実行回数
     if command_checker.equal_command(event.message.text, ['max']):
-        if command_checker.check_authority(event.source.user_id, level=1):
+        if command_checker.check_authority(event.source.user_id, level=2):
             user = command_checker.get_max_count_user()
             profile = line_bot_api.get_profile(user['user_id'])
             count = user['count']
-            reply = TextSendMessage(f'コマンド総実行回数が最も多いのは{profile.display_name}さんで、{count}回です。')
+            reply = creator.create_max_count_user(profile, count)
             line_bot_api.reply_message(event.reply_token, reply)
         else:
             line_bot_api.reply_message(event.reply_token,

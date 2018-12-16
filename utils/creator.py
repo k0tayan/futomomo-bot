@@ -57,3 +57,12 @@ class FlexCreator(FutomomoTool):
                                        'INSERT_AUTHORITY':str(authority)})
         return FlexSendMessage(alt_text='profile', contents=flex, quick_reply=self.create_quick_reply())
 
+    def create_max_count_user(self, profile, count):
+        flex = self.__get_json_object('./template/flex_max_count.json',{
+            'INSERT_ICON_URL': profile.picture_url,
+            'INSERT_NAME': profile.display_name,
+            'INSERT_COUNT': str(count) + '回',
+        })
+        return FlexSendMessage(alt_text='max', contents=flex, quick_reply=self.create_quick_reply())
+
+

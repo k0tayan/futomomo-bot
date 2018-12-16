@@ -1,0 +1,84 @@
+{
+  "type": "bubble",
+  "styles": {
+    "header": {
+      "backgroundColor": "#F1789B"
+    },
+    "body": {
+      "backgroundColor": "#ffffff"
+    },
+    "footer": {
+      "backgroundColor": "#F1789B"
+    }
+  },
+  "header": {
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+      {
+        "type": "spacer",
+        "size": "xs"
+      }
+    ]
+  },
+  "body": {
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+      {
+        "type": "box",
+        "layout": "vertical",
+        "contents":[
+          {
+            "type": "text",
+            "text": "最多コマンド実行者",
+            "align": "center",
+            "size": "xl"
+          },
+          {
+              "type": "separator"
+          },
+          {
+             "type": "spacer",
+             "size": "xl"
+           }
+        ]
+      },
+      {
+        "type": "box",
+        "layout": "horizontal",
+        "contents": [
+          {
+            "type": "image",
+            "url": "INSERT_ICON_URL",
+            "align": "start",
+            "size": "xs"
+          },
+          {
+            "type": "text",
+            "text": "INSERT_NAME",
+            "wrap": true,
+            "gravity": "center",
+            "size": "xl"
+          }
+        ]
+      },
+      {
+        "type":"box",
+        "layout":"vertical",
+        "contents":[
+          {
+             "type": "spacer",
+             "size": "xl"
+           },
+           {
+             "type":"text",
+             "text":"INSERT_COUNT",
+             "align":"center",
+             "size":"xxl"
+           }
+        ]
+      }
+    ]
+  }
+}
