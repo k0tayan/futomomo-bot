@@ -42,6 +42,9 @@ class CommandChecker:
             self.new_user(user_id)
             return 1
 
+    def get_max_count_user(self):
+        return self.collection.find_one(sort=[("count", -1)])
+
     def check_authority(self, user_id, level=100):
         if user_id in ADMINISTRATOR:
             return True

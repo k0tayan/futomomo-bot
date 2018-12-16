@@ -139,6 +139,18 @@ def handle_message(event):
         else:
             line_bot_api.reply_message(event.reply_token, TextSendMessage(f"権限がありません。\n{event.source.user_id}", quick_reply=qr))
 
+    # コマンド総実行回数
+    if command_checker.equal_command(event.message.text, ['max']):
+        if command_checker.check_authority(event.source.user_id, level=1):
+            user = command_checker.get_max_count_user()
+            profile = line_bot_api.get_profile(user['user_id'])
+            count = user['count']
+            reply = TextSendMessage(f'コマンド総実行回数が最も多いのは{profile.display_name}さんで、{count}回です。')
+            line_bot_api.reply_message(event.reply_token, reply)
+        else:
+            line_bot_api.reply_message(event.reply_token,
+                                       TextSendMessage(f"権限がありません。\n{event.source.user_id}", quick_reply=qr))
+
     # change authority
     if command_checker.include_command(event.message.text, ['cua']):
         if command_checker.check_authority(event.source.user_id, ADMIN):
