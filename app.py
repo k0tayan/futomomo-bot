@@ -25,6 +25,7 @@ app = Flask(__name__)
 env = os.getenv('LINE_BOT', None)
 if env == 'DEV':
     handler = WebhookHandler(os.getenv('LINE_CHANNEL_SECRET_DEV', None))
+    # line_bot_api = LineBotApi(os.getenv('LINE_CHANNEL_ACCESS_TOKEN_DEV', None))
     line_bot_api = LineBotApi(os.getenv('LINE_CHANNEL_ACCESS_TOKEN_DEV', None), endpoint='http://localhost:8080')
 elif env == 'RELEASE':
     handler = WebhookHandler(os.getenv('LINE_CHANNEL_SECRET', None))
@@ -185,7 +186,8 @@ def handle_follow(event):
 if __name__ == "__main__":
     if env == 'DEV':
         app.run(debug=True, host='localhost', port=5000)
+        # app.run(debug=True, host='0.0.0.0', port=40000)
     elif env == 'RELEASE':
-        app.run(debug=False, host='0.0.0.0', port=5000)
+        app.run(debug=False, host='0.0.0.0', port=40000)
     else:
         sys.exit(0)
