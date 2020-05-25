@@ -114,14 +114,14 @@ def handle_message(event):
         command_checker.count_up(event.source.user_id)
 
     # パンチラ
-    if command_checker.include_command(event.message.text, ["ぱんちら", "パンチラ"]):
-        if command_checker.check_authority(event.source.user_id, level=1):
-            url = futomomo_tool.get_random_pantira_url()
-            reply = ImageSendMessage(original_content_url=url, preview_image_url=url, quick_reply=qr)
-            line_bot_api.reply_message(event.reply_token, reply)
-            command_checker.count_up(event.source.user_id)
-        else:
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(f"権限がありません。\n{event.source.user_id}", quick_reply=qr))
+    # if command_checker.include_command(event.message.text, ["ぱんちら", "パンチラ"]):
+    #     if command_checker.check_authority(event.source.user_id, level=1):
+    #         url = futomomo_tool.get_random_pantira_url()
+    #         reply = ImageSendMessage(original_content_url=url, preview_image_url=url, quick_reply=qr)
+    #         line_bot_api.reply_message(event.reply_token, reply)
+    #         command_checker.count_up(event.source.user_id)
+    #     else:
+    #         line_bot_api.reply_message(event.reply_token, TextSendMessage(f"権限がありません。\n{event.source.user_id}", quick_reply=qr))
 
     # いっぱい
     if command_checker.include_command(event.message.text, ['いっぱい']):
@@ -130,14 +130,14 @@ def handle_message(event):
         command_checker.count_up(event.source.user_id)
 
     # おっぱい
-    if command_checker.include_command(event.message.text, ['おっぱい', 'opi', 'π']):
-        if command_checker.check_authority(event.source.user_id, level=1):
-            url = futomomo_tool.get_random_opi_url()
-            reply = ImageSendMessage(original_content_url=url, preview_image_url=url, quick_reply=qr)
-            line_bot_api.reply_message(event.reply_token, reply)
-            command_checker.count_up(event.source.user_id)
-        else:
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(f"権限がありません。\n{event.source.user_id}", quick_reply=qr))
+    # if command_checker.include_command(event.message.text, ['おっぱい', 'opi', 'π']):
+    #     if command_checker.check_authority(event.source.user_id, level=1):
+    #         url = futomomo_tool.get_random_opi_url()
+    #         reply = ImageSendMessage(original_content_url=url, preview_image_url=url, quick_reply=qr)
+    #         line_bot_api.reply_message(event.reply_token, reply)
+    #         command_checker.count_up(event.source.user_id)
+    #     else:
+    #         line_bot_api.reply_message(event.reply_token, TextSendMessage(f"権限がありません。\n{event.source.user_id}", quick_reply=qr))
 
     # コマンド総実行回数
     if command_checker.equal_command(event.message.text, ['max']):
