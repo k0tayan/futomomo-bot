@@ -181,6 +181,7 @@ def handle_message(event):
         search_result = creator.create_new_futomomo(string=event.message.text)
         if search_result:
             line_bot_api.reply_message(event.reply_token, search_result)
+            command_checker.count_up(event.source.user_id)
 
 
 @handler.add(PostbackEvent)
