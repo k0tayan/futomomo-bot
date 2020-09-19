@@ -43,12 +43,12 @@ class FutomomoTool(Config, DB):
 
     def search_futomomo(self, string):
         futomomos =  self.futomomo_collection.find(filter={"$or": [{'text': {'$regex': string}}, {"tag": {"$in": [string]}}]})
-        if futomomos is None:
-            return None
-        else:
+        if futomomos.count():
             index = random.randint(0, futomomos.count())
             data = futomomos[index]
             return NewFutomomo(text=data["text"], twitter_url=data["data"]["url"], twitter_image_url=data["image_url"],
                                twitter_id_for_model=data["data"]["id"])
+        else:
+            return None
 
 
