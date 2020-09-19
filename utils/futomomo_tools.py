@@ -36,7 +36,7 @@ class FutomomoTool(Config, DB):
         return f"https://s3-ap-northeast-1.amazonaws.com/futomomo/opi/{index}_opi.jpg"
 
     def get_random_new_futomomo(self):
-        index = random.randint(0, self.futomomo_collection.count())
+        index = random.randint(0, self.futomomo_collection.count()-1)
         data = self.futomomo_collection.find()[index]
         return NewFutomomo(text=data["text"], twitter_url=data["data"]["url"], twitter_image_url=data["image_url"],
                            twitter_id_for_model=data["data"]["id"])
@@ -44,7 +44,7 @@ class FutomomoTool(Config, DB):
     def search_futomomo(self, string):
         futomomos =  self.futomomo_collection.find(filter={"$or": [{'text': {'$regex': string}}, {"tag": {"$in": [string]}}]})
         if futomomos.count():
-            index = random.randint(0, futomomos.count())
+            index = random.randint(0, futomomos.count()-1)
             data = futomomos[index]
             return NewFutomomo(text=data["text"], twitter_url=data["data"]["url"], twitter_image_url=data["image_url"],
                                twitter_id_for_model=data["data"]["id"])
