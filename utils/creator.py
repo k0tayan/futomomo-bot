@@ -18,7 +18,7 @@ class FlexCreator(FutomomoTool):
         if replace:
             for r in replace:
                 raw_flex = raw_flex.replace(r, replace[r])
-        flex = json.loads(raw_flex)
+        flex = json.loads(raw_flex, strict=False)
         return flex
 
     def create_normal_futomomo(self):
