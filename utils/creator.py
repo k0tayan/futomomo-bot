@@ -13,7 +13,8 @@ class FlexCreator(FutomomoTool):
         super().__init__()
 
     def __get_json_object(self, path, replace=None):
-        raw_flex = open(path, 'r').read()
+        with open(path, 'r') as f:
+            raw_flex = f.read()
         if replace:
             for r in replace:
                 raw_flex = raw_flex.replace(r, replace[r])
@@ -33,8 +34,8 @@ class FlexCreator(FutomomoTool):
         return FlexSendMessage(alt_text='ふともも', contents=flex, quick_reply=self.create_quick_reply())
 
     def create_help_message(self):
-        flex = self.__get_json_object('./template/flex_help_message.json')
-        url = self.get_random_futomomo().url
+        flex = self.__get_json_object('./template/flex_new_help_message.json')
+        url = self.get_random_new_futomomo().twitter_image_url
         flex["hero"]["url"] = url
         flex["hero"]["action"]["uri"] = url
         return FlexSendMessage(alt_text='ヘルプ', contents=flex, quick_reply=self.create_quick_reply())
@@ -43,7 +44,7 @@ class FlexCreator(FutomomoTool):
         return QuickReply(items=[
             QuickReplyButton(image_url=self.get_random_futomomo().square_url, action=MessageAction(label="ヘルプ", text="ヘルプ")),
             QuickReplyButton(image_url=self.get_random_futomomo().square_url, action=MessageAction(label="ふともも", text="ふともも")),
-            QuickReplyButton(image_url=self.get_random_futomomo().square_url, action=MessageAction(label="いっぱい", text="いっぱい")),
+            # QuickReplyButton(image_url=self.get_random_futomomo().square_url, action=MessageAction(label="いっぱい", text="いっぱい")),
             # QuickReplyButton(image_url=self.get_random_futomomo().square_url, action=MessageAction(label="ぱんちら", text="ぱんちら")),
             # QuickReplyButton(image_url=self.get_random_futomomo().square_url, action=MessageAction(label="おっぱい", text="おっぱい"))
         ])
@@ -65,4 +66,38 @@ class FlexCreator(FutomomoTool):
         })
         return FlexSendMessage(alt_text='max', contents=flex, quick_reply=self.create_quick_reply())
 
-
+    def create_new_futomomo(self, string=None):
+        if string:
+            futomomo = self.search_futomomo(string)
+            if futomomo is None:
+                return None
+        else:
+            futomomo = self.get_random_new_futomomo()
+        futomomo.text = '-' + futomomo.text + '-'
+        flex = self.__get_json_object('./template/carousel_fb_twitter.json', {
+            'TWITTER_TEXT':futomomo.text,
+            'TWITTER_IMAGE_URL':futomomo.twitter_image_url
+        })
+        if futomomo.twitter_id_for_model != '':
+            flex["contents"][1]["body"]["contents"].append({
+                "type": "button",
+                "action": {
+                    "type": "uri",
+                    "label": futomomo.twitter_id_for_model,
+                    "uri": futomomo.twitter_url_for_model
+                },
+                "style": "primary",
+                "color": "#F1789B",
+                "margin": "md"
+            })
+        flex["contents"][1]["body"]["contents"].append({
+            "type": "button",
+            "action": {
+                "type": "uri",
+                "label": "ふとももbot",
+                "uri": futomomo.twitter_url
+            },
+            "style": "primary",
+            "color": "#1DA1F2"
+        })
+        return FlexSendMessage(alt_text="ふともも", contents=flex, quick_reply=self.create_quick_reply())

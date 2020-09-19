@@ -26,7 +26,7 @@ env = os.getenv('LINE_BOT', None)
 if env == 'DEV':
     handler = WebhookHandler(os.getenv('LINE_CHANNEL_SECRET_DEV', None))
     # line_bot_api = LineBotApi(os.getenv('LINE_CHANNEL_ACCESS_TOKEN_DEV', None))
-    line_bot_api = LineBotApi(os.getenv('LINE_CHANNEL_ACCESS_TOKEN_DEV', None), endpoint='http://localhost:8080')
+    line_bot_api = LineBotApi(os.getenv('LINE_CHANNEL_ACCESS_TOKEN_DEV', None))
 elif env == 'RELEASE':
     handler = WebhookHandler(os.getenv('LINE_CHANNEL_SECRET', None))
     line_bot_api = LineBotApi(os.getenv('LINE_CHANNEL_ACCESS_TOKEN', None))
@@ -71,14 +71,19 @@ def callback():
 def handle_message(event):
     # test
     if command_checker.equal_command(event.message.text, ['test']):
-        f = open('./template/flex_pattern.json', 'r')
-        json_dict = json.load(f)
+        with open('./template/flex_pattern.json') as f:
+            json_dict = json.load(f)
         flex = json_dict
         test = FlexSendMessage(alt_text='test', contents=flex, quick_reply=qr)
         line_bot_api.reply_message(event.reply_token, test)
 
+    # test2
+    elif command_checker.equal_command(event.message.text, ['test2']):
+        flex = creator.create_new_futomomo()
+        line_bot_api.reply_message(event.reply_token, flex)
+
     # profile
-    if command_checker.equal_command(event.message.text, ['profile', 'p', 'pl', 'プロフィール']):
+    elif command_checker.equal_command(event.message.text, ['profile', 'p', 'pl', 'プロフィール']):
         profile = line_bot_api.get_profile(event.source.user_id)
         user = command_checker.get_user(event.source.user_id)
         if not user:
@@ -87,17 +92,17 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, reply)
 
     # uid
-    if command_checker.equal_command(event.message.text, ['uid', 'UID']):
+    elif command_checker.equal_command(event.message.text, ['uid', 'UID']):
         reply = TextSendMessage(event.source.user_id, quick_reply=qr)
         line_bot_api.reply_message(event.reply_token, reply)
 
     # help
-    if command_checker.equal_command(event.message.text, ["ヘルプ", "help", "h"]):
+    elif command_checker.equal_command(event.message.text, ["ヘルプ", "help", "h"]):
         reply = creator.create_help_message()
         line_bot_api.reply_message(event.reply_token, reply)
 
     # bye
-    if command_checker.equal_command(event.message.text, ['bye', 'ばいばい', 'バイバイ', '死ね']):
+    elif command_checker.equal_command(event.message.text, ['bye', 'ばいばい', 'バイバイ', '死ね']):
         if event.source.type == 'user':
             return
         reply = TextSendMessage('ばいばい!')
@@ -108,14 +113,16 @@ def handle_message(event):
             line_bot_api.leave_room(event.source.sender_id)
 
     # ふともも
-    if command_checker.include_command(event.message.text, ["ふともも", "ふと", "もも", "futomomo", "桃", "momo"]):
-        futomomo = futomomo_tool.get_random_futomomo()
-        reply = ImageSendMessage(original_content_url=futomomo.high_quality_url, preview_image_url=futomomo.url, quick_reply=qr)
-        line_bot_api.reply_message(event.reply_token, reply)
+    elif command_checker.include_command(event.message.text, ["ふともも", "ふと", "もも", "futomomo", "桃", "momo"]):
+        flex = creator.create_new_futomomo()
+        line_bot_api.reply_message(event.reply_token, flex)
+        # futomomo = futomomo_tool.get_random_futomomo()
+        # reply = ImageSendMessage(original_content_url=futomomo.high_quality_url, preview_image_url=futomomo.url, quick_reply=qr)
+        # line_bot_api.reply_message(event.reply_token, reply)
         command_checker.count_up(event.source.user_id)
 
     # パンチラ
-    # if command_checker.include_command(event.message.text, ["ぱんちら", "パンチラ"]):
+    # elif command_checker.include_command(event.message.text, ["ぱんちら", "パンチラ"]):
     #     if command_checker.check_authority(event.source.user_id, level=1):
     #         url = futomomo_tool.get_random_pantira_url()
     #         reply = ImageSendMessage(original_content_url=url, preview_image_url=url, quick_reply=qr)
@@ -125,13 +132,13 @@ def handle_message(event):
     #         line_bot_api.reply_message(event.reply_token, TextSendMessage(f"権限がありません。\n{event.source.user_id}", quick_reply=qr))
 
     # いっぱい
-    if command_checker.include_command(event.message.text, ['いっぱい']):
-        futomomo = creator.create_normal_futomomo()
-        line_bot_api.reply_message(event.reply_token, futomomo)
-        command_checker.count_up(event.source.user_id)
+    # elif command_checker.include_command(event.message.text, ['いっぱい']):
+    #     futomomo = creator.create_normal_futomomo()
+    #     line_bot_api.reply_message(event.reply_token, futomomo)
+    #     command_checker.count_up(event.source.user_id)
 
     # おっぱい
-    # if command_checker.include_command(event.message.text, ['おっぱい', 'opi', 'π']):
+    # elif command_checker.include_command(event.message.text, ['おっぱい', 'opi', 'π']):
     #     if command_checker.check_authority(event.source.user_id, level=1):
     #         url = futomomo_tool.get_random_opi_url()
     #         reply = ImageSendMessage(original_content_url=url, preview_image_url=url, quick_reply=qr)
@@ -141,7 +148,7 @@ def handle_message(event):
     #         line_bot_api.reply_message(event.reply_token, TextSendMessage(f"権限がありません。\n{event.source.user_id}", quick_reply=qr))
 
     # コマンド総実行回数
-    if command_checker.equal_command(event.message.text, ['max']):
+    elif command_checker.equal_command(event.message.text, ['max']):
         if command_checker.check_authority(event.source.user_id, level=ADMIN):
             user = command_checker.get_max_count_user()
             profile = line_bot_api.get_profile(user['user_id'])
@@ -153,7 +160,7 @@ def handle_message(event):
                                        TextSendMessage(f"権限がありません。\n{event.source.user_id}", quick_reply=qr))
 
     # change authority
-    if command_checker.include_command(event.message.text, ['cua']):
+    elif command_checker.include_command(event.message.text, ['cua']):
         if command_checker.check_authority(event.source.user_id, ADMIN):
             req = event.message.text.split(' ')
             if len(req) == 3:
@@ -167,8 +174,14 @@ def handle_message(event):
             else:
                 reply = TextSendMessage("Invalid format")
                 line_bot_api.reply_message(event.reply_token, reply)
-        else:
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(f"権限がありません。\n{event.source.user_id}", quick_reply=qr))
+        # else:
+            # line_bot_api.reply_message(event.reply_token, TextSendMessage(f"権限がありません。\n{event.source.user_id}", quick_reply=qr))
+    else:
+        # それ以外の文字列だったら検索
+        search_result = creator.create_new_futomomo(string=event.message.text)
+        if search_result:
+            line_bot_api.reply_message(event.reply_token, search_result)
+
 
 @handler.add(PostbackEvent)
 def handle_postback(event):

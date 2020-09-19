@@ -1,4 +1,5 @@
 from pymongo import MongoClient
+from utils.db import DB
 
 ADMIN = 100
 ADMINISTRATOR = ["Uc45442e19e3f8326fc321e828003f710", "U1e73ade0030068a7f41e05e72fd54418"]
@@ -7,34 +8,32 @@ class CommandHandler:
     def __init__(self):
         pass
 
-class CommandChecker:
+class CommandChecker(DB):
     def __init__(self):
-
+        super().__init__()
         # database
-        client = MongoClient('localhost', 27017)
-        db = client['LINE-USERS']
-        self.collection = db['user-collection']
+        self.user_collection = self.db['user-collection']
 
     def new_user(self, user_id, count=1, authority=0):
-        self.collection.insert({'user_id': user_id, 'count': count, 'authority': authority})
+        self.user_collection.insert({'user_id': user_id, 'count': count, 'authority': authority})
 
     def get_user(self, user_id):
-        users = self.collection.find({'user_id':user_id})
+        users = self.user_collection.find({'user_id':user_id})
         if users.count():
             return users[0]
         else:
             return None
 
     def count_up(self, user_id):
-        users = self.collection.find({'user_id':user_id})
+        users = self.user_collection.find({'user_id':user_id})
         if users.count():
             for user in users:
-                self.collection.update({'user_id': user_id}, {'$set': {'count': user['count']+1}})
+                self.user_collection.update({'user_id': user_id}, {'$set': {'count': user['count']+1}})
         else:
             self.new_user(user_id)
 
     def get_count(self, user_id):
-        users = self.collection.find({'user_id':user_id})
+        users = self.user_collection.find({'user_id':user_id})
         if users.count():
             for user in users:
                 return user['count']
@@ -43,13 +42,13 @@ class CommandChecker:
             return 1
 
     def get_max_count_user(self):
-        return self.collection.find_one(sort=[("count", -1)])
+        return self.user_collection.find_one(sort=[("count", -1)])
 
     def check_authority(self, user_id, level=100):
         if user_id in ADMINISTRATOR:
             return True
         else:
-            users = self.collection.find({'user_id': user_id, 'authority':{'$gte' :level}})
+            users = self.user_collection.find({'user_id': user_id, 'authority':{'$gte' :level}})
             if users.count():
                 return True
             else:
@@ -58,9 +57,9 @@ class CommandChecker:
     def update_authority(self, user_id, level):
         if user_id in ADMINISTRATOR:
             return False
-        users = self.collection.find({'user_id': user_id})
+        users = self.user_collection.find({'user_id': user_id})
         if users.count():
-            self.collection.update({'user_id':user_id}, {'$set': {'authority':level}})
+            self.user_collection.update({'user_id':user_id}, {'$set': {'authority':level}})
             return True
         else:
             self.new_user(user_id, count=1, authority=level)

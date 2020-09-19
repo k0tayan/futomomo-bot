@@ -1,0 +1,46 @@
+{
+  "type": "carousel",
+  "contents": [
+    {
+      "type": "bubble",
+      "size": "giga",
+      "direction": "ltr",
+      "action": {
+        "type": "uri",
+        "label": "test",
+        "uri": "TWITTER_URL"
+      },
+      "hero": {
+        "type": "image",
+        "url": "TWITTER_IMAGE_URL",
+        "margin": "none",
+        "size": "full",
+        "aspectRatio": "4:3",
+        "aspectMode": "cover"
+      }
+    },
+    {
+      "type": "bubble",
+      "size": "giga",
+      "direction": "ltr",
+      "body": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": "TWITTER_TEXT",
+            "align": "center",
+            "wrap": true,
+            "contents": []
+          }
+        ]
+      },
+      "styles": {
+        "body": {
+          "backgroundColor": "#FFFFFFFF"
+        }
+      }
+    }
+  ]
+}

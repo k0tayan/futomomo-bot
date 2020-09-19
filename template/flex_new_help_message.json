@@ -1,0 +1,149 @@
+{
+  "type": "bubble",
+  "hero": {
+    "type": "image",
+    "url": "https://farm8.static.flickr.com/7511/15869727229_d974edda34.jpg",
+    "size": "full",
+    "aspectRatio": "20:13",
+    "aspectMode": "cover",
+    "action": {
+      "type": "uri",
+      "uri": "https://farm5.staticflickr.com/4692/25578359848_705342b84a_h.jpg"
+    }
+  },
+  "body": {
+    "type": "box",
+    "layout": "vertical",
+    "spacing": "md",
+    "contents": [
+      {
+        "type": "text",
+        "text": "ふとももbotの使い方",
+        "wrap": true,
+        "weight": "bold",
+        "gravity": "center",
+        "size": "md"
+      },
+      {
+        "type": "text",
+        "text": "ふとももbotは以下のコマンドが使えます",
+        "wrap": true,
+        "gravity": "center",
+        "size": "sm"
+      },
+      {
+        "type": "box",
+        "layout": "vertical",
+        "spacing": "md",
+        "contents":[
+          {
+            "type": "separator",
+            "color": "#000000"
+          },
+          {
+            "type": "text",
+            "text": "ふとももの画像を送信します",
+            "wrap": true,
+            "gravity": "center",
+            "size": "sm"
+          },
+          {
+            "type": "button",
+            "action": {
+              "type": "message",
+              "label": "ふともも",
+              "text": "ふともも"
+            },
+            "style": "primary",
+            "color": "#F1789B",
+            "gravity": "center"
+          }
+        ]
+      },
+      {
+        "type": "box",
+        "layout": "vertical",
+        "spacing": "md",
+        "contents":[
+          {
+            "type": "separator",
+            "color": "#000000"
+          },
+          {
+            "type": "text",
+            "text": "このヘルプメッセージを送信します",
+            "wrap": true,
+            "gravity": "center",
+            "size": "sm"
+          },
+          {
+            "type": "button",
+            "action": {
+              "type": "message",
+              "label": "ヘルプ",
+              "text": "ヘルプ"
+            },
+            "style": "primary",
+            "color": "#F1789B",
+            "gravity": "center"
+          }
+        ]
+      },
+      {
+            "type": "separator",
+            "color": "#000000"
+      },
+      {
+        "type": "box",
+        "layout": "vertical",
+        "spacing": "xl",
+        "contents":[
+          {
+            "type": "spacer",
+            "size": "xl"
+          },
+          {
+            "type": "text",
+            "text": "作者の連絡先",
+            "wrap": true,
+            "gravity": "center",
+            "size": "sm"
+          },
+          {
+            "type": "button",
+            "action": {
+              "type": "uri",
+              "label": "このbotの作者のTwitter",
+              "uri":"https://twitter.com/kotayan_0415?lang=ja"
+            },
+            "style": "primary",
+            "color": "#1DA1F2",
+            "gravity": "center"
+          },
+          {
+            "type": "button",
+            "action": {
+              "type": "uri",
+              "label": "ふとももbot(Twitter)",
+              "uri":"https://twitter.com/futomo_bot?lang=ja"
+            },
+            "style": "primary",
+            "color": "#1DA1F2",
+            "gravity": "center"
+          },
+          {
+            "type": "button",
+            "action": {
+              "type": "uri",
+              "label": "botを追加する",
+              "uri":"line://ti/p/%40hdi2947s"
+            },
+            "style": "primary",
+            "color": "#00BE8C",
+            "gravity": "center"
+          }
+        ]
+      }
+    ]
+  }
+}
