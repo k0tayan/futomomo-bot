@@ -1,8 +1,11 @@
 from pymongo import MongoClient
 import json
-client = MongoClient('localhost', 27017)
+import os
 
-with open("new_twitter.json") as f:
+MONGO_URI = os.getenv('MONGO_URI', None)
+client = MongoClient(MONGO_URI)
+
+with open("new_twitter.json", encoding="utf-8") as f:
     data = json.loads(f.read())
 db = client['LINE-USERS']
 collection = db['futomomo-collection']

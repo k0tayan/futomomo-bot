@@ -25,7 +25,6 @@ app = Flask(__name__)
 env = os.getenv('LINE_BOT', None)
 if env == 'DEV':
     handler = WebhookHandler(os.getenv('LINE_CHANNEL_SECRET_DEV', None))
-    # line_bot_api = LineBotApi(os.getenv('LINE_CHANNEL_ACCESS_TOKEN_DEV', None))
     line_bot_api = LineBotApi(os.getenv('LINE_CHANNEL_ACCESS_TOKEN_DEV', None))
 elif env == 'RELEASE':
     handler = WebhookHandler(os.getenv('LINE_CHANNEL_SECRET', None))
@@ -71,7 +70,7 @@ def callback():
 def handle_message(event):
     # test
     if command_checker.equal_command(event.message.text, ['test']):
-        with open('./template/flex_pattern.json') as f:
+        with open('./template/flex_pattern.json', encoding='utf-8') as f:
             json_dict = json.load(f)
         flex = json_dict
         test = FlexSendMessage(alt_text='test', contents=flex, quick_reply=qr)

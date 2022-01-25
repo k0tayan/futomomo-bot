@@ -14,31 +14,26 @@ class CommandChecker(DB):
         # database
         self.user_collection = self.db['user-collection']
 
-    def new_user(self, user_id, count=1, authority=0):
-        self.user_collection.insert({'user_id': user_id, 'count': count, 'authority': authority})
+    def set_new_user(self, user_id, count=1, authority=0):
+        self.user_collection.insert_one({'user_id': user_id, 'count': count, 'authority': authority})
 
     def get_user(self, user_id):
-        users = self.user_collection.find({'user_id':user_id})
-        if users.count():
-            return users[0]
-        else:
-            return None
+        user = self.user_collection.find_one({'user_id':user_id})
+        return user
 
     def count_up(self, user_id):
-        users = self.user_collection.find({'user_id':user_id})
-        if users.count():
-            for user in users:
-                self.user_collection.update({'user_id': user_id}, {'$set': {'count': user['count']+1}})
+        user = self.user_collection.find_one({'user_id':user_id})
+        if user is not None:
+            self.user_collection.update_one({'user_id': user_id}, {'$set': {'count': user['count']+1}})
         else:
-            self.new_user(user_id)
+            self.set_new_user(user_id)
 
     def get_count(self, user_id):
-        users = self.user_collection.find({'user_id':user_id})
-        if users.count():
-            for user in users:
-                return user['count']
+        user = self.get_user(user_id)
+        if user is not None:
+            return user['count']
         else:
-            self.new_user(user_id)
+            self.set_new_user(user_id)
             return 1
 
     def get_max_count_user(self):
@@ -48,21 +43,18 @@ class CommandChecker(DB):
         if user_id in ADMINISTRATOR:
             return True
         else:
-            users = self.user_collection.find({'user_id': user_id, 'authority':{'$gte' :level}})
-            if users.count():
-                return True
-            else:
-                return False
+            user = self.get_user(user_id)
+            return user["authority"] >= level
 
     def update_authority(self, user_id, level):
         if user_id in ADMINISTRATOR:
             return False
-        users = self.user_collection.find({'user_id': user_id})
-        if users.count():
-            self.user_collection.update({'user_id':user_id}, {'$set': {'authority':level}})
+        user = self.get_user(user_id)
+        if user is not None:
+            self.user_collection.update_one({'user_id':user_id}, {'$set': {'authority':level}})
             return True
         else:
-            self.new_user(user_id, count=1, authority=level)
+            self.set_new_user(user_id, count=1, authority=level)
             return True
 
 

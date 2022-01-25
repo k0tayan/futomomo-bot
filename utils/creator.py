@@ -13,7 +13,7 @@ class FlexCreator(FutomomoTool):
         super().__init__()
 
     def __get_json_object(self, path, replace=None):
-        with open(path, 'r') as f:
+        with open(path, 'r', encoding='utf-8') as f:
             raw_flex = f.read()
         if replace:
             for r in replace:
