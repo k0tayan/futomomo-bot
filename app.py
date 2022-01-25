@@ -201,6 +201,6 @@ if __name__ == "__main__":
         app.run(debug=True, host='localhost', port=5000)
         # app.run(debug=True, host='0.0.0.0', port=40000)
     elif env == 'RELEASE':
-        app.run(debug=False, host='0.0.0.0', port=40000)
+        app.run(debug=False, host='0.0.0.0')
     else:
         sys.exit(0)

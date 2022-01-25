@@ -1,0 +1,24 @@
+{
+    "dev": {
+        "app_function": "app.app",
+        "aws_region": "ap-northeast-1",
+        "profile_name": "kotayan",
+        "project_name": "futomomo-bot",
+        "runtime": "python3.9",
+        "s3_bucket": "zappa-9pnv9w9ql",
+        "environment_variables": {
+            "LINE_BOT": "DEV"
+        }
+    },
+    "prod": {
+        "app_function": "app.app",
+        "aws_region": "ap-northeast-1",
+        "profile_name": "kotayan",
+        "project_name": "futomomo-bot",
+        "runtime": "python3.9",
+        "s3_bucket": "zappa-9pnv9w9ql",
+        "environment_variables": {
+            "LINE_BOT": "RELEASE"
+        }
+    }
+}

@@ -3,6 +3,7 @@ from utils.config import Config
 from utils.objects import Futomomo, NewFutomomo
 from utils.db import DB
 import os
+import re
 
 PANTIRA_RANGE_MIN = 1
 PANTIRA_RANGE_MAX = 73
@@ -43,7 +44,7 @@ class FutomomoTool(Config, DB):
                            twitter_id_for_model=data["data"]["id"])
 
     def search_futomomo(self, string):
-        futomomos = list(self.futomomo_collection.aggregate([{"$match":{"$or": [{'text': {'$regex': string}}, {"tag": {"$in": [string]}}]}},{ "$sample": { "size": 1 }}]))
+        futomomos = list(self.futomomo_collection.aggregate([{"$match":{"$or": [{'text': {'$regex': f"{re.escape(string)}"}}, {"tag": {"$in": [string]}}]}},{ "$sample": { "size": 1 }}]))
         if len(futomomos) > 0:
             data = futomomos[0]
             return NewFutomomo(text=data["text"], twitter_url=data["data"]["url"], twitter_image_url=data["image_url"],
